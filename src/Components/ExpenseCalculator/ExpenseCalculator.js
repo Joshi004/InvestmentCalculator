@@ -110,10 +110,10 @@ class ExpenseCalculator extends Component {
       <Segment className="expense-calculator-container" padded>
         <Header as="h2" textAlign="center">Retirement Expense Calculator</Header>
 
-        <Grid stackable>
-          <Grid.Row>
-            {/* Left Column: Input Form */}
-            <Grid.Column width={4} tablet={6} mobile={16}>
+        <Grid stackable doubling> {/* Use stackable and doubling for responsive design */}
+          <Grid.Row columns={2}> {/* Ensure two columns */}
+            
+            <Grid.Column width={6} tablet={6} mobile={16}> {/* Adjust width for responsiveness */}
               <Form>
                 <Form.Field>
                   <label>Total Initial Amount</label>
@@ -177,8 +177,7 @@ class ExpenseCalculator extends Component {
               </Form>
             </Grid.Column>
 
-            {/* Right Column: Output Results */}
-            <Grid.Column width={12} tablet={10} mobile={16}>
+            <Grid.Column width={10} tablet={10} mobile={16}> {/* Make sure the width adds up to 16 */}
               <Segment className="result-box">
                 <Header as="h3">Expense Summary</Header>
                 <p>

@@ -1,6 +1,5 @@
 .expense-calculator-container {
     padding: 20px;
-    max-width: 1200px;
     margin: 0 auto;
     
     @media (max-width: 768px) {
@@ -10,7 +9,6 @@
   
     .result-box {
       font-size: 16px;
-  
       @media (max-width: 768px) {
         font-size: 14px;
       }
@@ -53,13 +51,13 @@
     }
   }
   
-  .chart-container {
-    display: block; /* Default display for larger screens */
-  }
+//   .chart-container {
+//     display: block; /* Default display for larger screens */
+//   }
   
-  @media (max-width: 767px) {
-    .chart-container {
-      display: none; /* Hide chart on mobile screens */
-    }
-  }
+//   @media (max-width: 767px) {
+//     .chart-container {
+//       display: none; /* Hide chart on mobile screens */
+//     }
+//   }
   

@@ -21,21 +21,18 @@ const InvestmentChart = ({ chartData }) => {
       type: 'line',
       data: chartData,
       options: {
-        responsive: true, // Ensures the chart is responsive
-        maintainAspectRatio: false, // Allows dynamic aspect ratio on different screens
-        aspectRatio: window.innerWidth < 768 ? 1 : 2, // Square aspect ratio on mobile, rectangular on larger screens
+        maintainAspectRatio: false, // Disable maintaining the default aspect ratio
+        aspectRatio: 2, // You can adjust this aspect ratio for desktop users
         scales: {
           y: {
             id: 'y-axis-1',
             position: 'left', // Y-axis on the left
             ticks: {
               beginAtZero: true,
-              fontSize: window.innerWidth < 768 ? 10 : 14, // Adjust font size for mobile
             },
             title: {
               display: true,
               text: 'Remaining Amount',
-              fontSize: window.innerWidth < 768 ? 12 : 16, // Smaller title on mobile
             }
           },
           y1: {
@@ -43,7 +40,6 @@ const InvestmentChart = ({ chartData }) => {
             position: 'right', // Y-axis on the right
             ticks: {
               beginAtZero: true,
-              fontSize: window.innerWidth < 768 ? 10 : 14, // Adjust font size for mobile
             },
             grid: {
               drawOnChartArea: false, // Prevent grid lines from this axis
@@ -51,30 +47,17 @@ const InvestmentChart = ({ chartData }) => {
             title: {
               display: true,
               text: 'Withdrawn & Added Amounts',
-              fontSize: window.innerWidth < 768 ? 12 : 16, // Smaller title on mobile
             }
           },
-          x: {
-            ticks: {
-              fontSize: window.innerWidth < 768 ? 10 : 14, // Adjust font size for mobile
-            },
-            title: {
-              display: true,
-              text: 'Time (Months)',
-              fontSize: window.innerWidth < 768 ? 12 : 16, // Smaller title on mobile
-            }
-          }
         },
         plugins: {
           tooltip: {
             enabled: true, // Enable tooltips on hover
             callbacks: {
-              label: function (tooltipItem) {
+              label: function(tooltipItem) {
                 return `${tooltipItem.dataset.label}: ₹${tooltipItem.raw.toLocaleString('en-IN')}`;
               }
-            },
-            bodyFontSize: window.innerWidth < 768 ? 10 : 14, // Smaller tooltip font on mobile
-            titleFontSize: window.innerWidth < 768 ? 12 : 16, // Adjust tooltip title font size
+            }
           },
           legend: {
             display: true,
@@ -82,7 +65,6 @@ const InvestmentChart = ({ chartData }) => {
             labels: {
               boxWidth: 20,
               usePointStyle: true,
-              fontSize: window.innerWidth < 768 ? 10 : 14, // Adjust legend font size for mobile
             }
           }
         }
@@ -97,7 +79,11 @@ const InvestmentChart = ({ chartData }) => {
     };
   }, [chartData]);
 
-  return <canvas ref={chartRef} style={{ width: '100%', height: '100%' }} />;
+  return (
+    <div style={{ position: 'relative', height: '400px', width: '100%' }}> {/* Set container height and width */}
+      <canvas ref={chartRef} />
+    </div>
+  );
 };
 
 export default InvestmentChart;

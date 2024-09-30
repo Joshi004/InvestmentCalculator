@@ -53,3 +53,13 @@
     }
   }
   
+  .chart-container {
+    display: block; /* Default display for larger screens */
+  }
+  
+  @media (max-width: 767px) {
+    .chart-container {
+      display: none; /* Hide chart on mobile screens */
+    }
+  }
+  

@@ -1,0 +1,55 @@
+.expense-calculator-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    @media (max-width: 768px) {
+      padding: 10px;
+      max-width: 100%;
+    }
+  
+    .result-box {
+      font-size: 16px;
+  
+      @media (max-width: 768px) {
+        font-size: 14px;
+      }
+    }
+  
+    .ui.grid {
+      display: flex;
+      flex-direction: column;
+  
+      @media (min-width: 768px) {
+        flex-direction: row;
+      }
+    }
+  
+    .ui.form .field {
+      width: 100%;
+  
+      @media (min-width: 768px) {
+        width: 100%;
+      }
+    }
+  
+    .rc-slider {
+      width: 100%;
+  
+      @media (max-width: 768px) {
+        width: 100%;
+        height: 30px; /* Adjust for better touch interaction */
+      }
+    }
+  
+    button, input {
+      padding: 12px 20px;
+      font-size: 16px;
+  
+      @media (max-width: 768px) {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+    }
+  }
+  

@@ -71,10 +71,10 @@ class InvestmentCalculator extends Component {
       <Segment className="calculator-container" padded style={{ width: '100%', margin: '0' }}> {/* Ensure 100% width */}
         <Header as="h2" textAlign="center">SIP & Lump Sum Maturity Calculator</Header>
 
-        <Grid>
+        <Grid stackable> {/* Make the grid stackable for responsiveness */}
           <Grid.Row>
-            {/* Left Column: Input Form (20% width) */}
-            <Grid.Column width={4}> {/* 20% width of the page */}
+            {/* Left Column: Input Form */}
+            <Grid.Column width={4} tablet={6} mobile={16}> {/* Adjust width for different screen sizes */}
               <Form>
                 <Form.Field>
                   <label>Initial Lump Sum Investment</label>
@@ -140,8 +140,8 @@ class InvestmentCalculator extends Component {
               </Form>
             </Grid.Column>
 
-            {/* Right Column: Output Results and Chart (80% width) */}
-            <Grid.Column width={12}> {/* 80% width of the page */}
+            {/* Right Column: Output Results and Chart */}
+            <Grid.Column width={12} tablet={10} mobile={16}> {/* Adjust width for different screen sizes */}
               <Segment className="result-box">
                 <Header as="h3">Investment Summary</Header>
                 <p>
@@ -161,9 +161,10 @@ class InvestmentCalculator extends Component {
                 </p>
               </Segment>
             </Grid.Column>
-
           </Grid.Row>
         </Grid>
+        
+        {/* Render the chart */}
         {chartData && <InvestmentChart chartData={chartData} />}
       </Segment>
     );

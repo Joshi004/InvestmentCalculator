@@ -11,7 +11,7 @@ class ExpenseCalculator extends Component {
     super(props);
     this.state = {
       initialAmount: 10000000, // Default value of Total Initial Amount (1 crore)
-      monthlyExpense: 100000, // Monthly expense with default value
+      monthlyExpense: 50000, // Monthly expense with default value
       expenseIncrement: 10, // Default value for Expense Increment Per Year (%)
       totalYears: 30, // Default value for Total Expenditure Years
       cagr: 12, // Default value for Annual CAGR (%)
@@ -99,10 +99,10 @@ class ExpenseCalculator extends Component {
       <Segment className="expense-calculator-container" padded>
         <Header as="h2" textAlign="center">Retirement Expense Calculator</Header>
 
-        <Grid>
+        <Grid className="form-container">
           <Grid.Row>
             {/* Left Column: Input Form */}
-            <Grid.Column width={3}>
+            <Grid.Column width={16} mobile={16} tablet={8} computer={3}>
               <Form>
                 <Form.Field>
                   <label>Total Initial Amount: ₹{(initialAmount / 10000000).toLocaleString('en-IN')} Crore</label>
@@ -119,8 +119,8 @@ class ExpenseCalculator extends Component {
                   <label>Expense Per Month: ₹{monthlyExpense.toLocaleString('en-IN')}</label>
                   <Slider
                     value={monthlyExpense}
-                    min={100000}
-                    max={5000000}
+                    min={50000}
+                    max={1000000}
                     step={10000}
                     onChange={this.handleSliderChange} // Update chart when slider changes
                   />
@@ -166,7 +166,7 @@ class ExpenseCalculator extends Component {
             </Grid.Column>
 
             {/* Right Column: Output Results */}
-            <Grid.Column width={13}>
+            <Grid.Column width={16} mobile={16} tablet={8} computer={13}>
               {chartData && <InvestmentChart chartData={chartData} />}
               <Segment className="result-box">
                 <Header as="h3">Expense Summary</Header>

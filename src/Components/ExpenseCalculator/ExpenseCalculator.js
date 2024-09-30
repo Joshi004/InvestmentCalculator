@@ -22,19 +22,12 @@ class ExpenseCalculator extends Component {
     };
   }
 
-  // Handle input changes
+  // Handle input changes for other fields
   handleInputChange = (e) => {
     const { name, value } = e.target;
     const numericValue = value.replace(/,/g, '');
 
-    if (name === 'initialAmount') {
-      this.setState({
-        initialAmount: numericValue !== '' ? parseFloat(numericValue) : '',
-        formattedInitialAmount: this.formatNumber(numericValue)
-      });
-    } else {
-      this.setState({ [name]: value !== '' ? parseFloat(value) : '' });
-    }
+    this.setState({ [name]: value !== '' ? parseFloat(numericValue) : '' });
   };
 
   // Function to format numbers with commas
@@ -43,9 +36,9 @@ class ExpenseCalculator extends Component {
     return Number(value).toLocaleString('en-IN');
   };
 
-  // Handle slider change for Monthly Expense and trigger chart update
-  handleSliderChange = (value) => {
-    this.setState({ monthlyExpense: value }, this.calculateResults); // Call calculateResults after updating state
+  // Handle slider change for Monthly Expense and Total Initial Amount and trigger chart update
+  handleSliderChange = (name, value) => {
+    this.setState({ [name]: value }, this.calculateResults); // Update state and recalculate results
   };
 
   // Calculate the remaining amount and display results
@@ -104,7 +97,7 @@ class ExpenseCalculator extends Component {
   };
 
   render() {
-    const { formattedInitialAmount, monthlyExpense, expenseIncrement, totalYears, cagr, remainingAmount, monthsUntilZero, chartData } = this.state;
+    const { initialAmount, monthlyExpense, expenseIncrement, totalYears, cagr, remainingAmount, monthsUntilZero, chartData } = this.state;
 
     return (
       <Segment className="expense-calculator-container" padded>
@@ -113,17 +106,17 @@ class ExpenseCalculator extends Component {
         <Grid stackable doubling> {/* Use stackable and doubling for responsive design */}
           <Grid.Row columns={2}> {/* Ensure two columns */}
             
-            <Grid.Column width={6} tablet={6} mobile={16}> {/* Adjust width for responsiveness */}
+            {/* Left Column: Input Form */}
+            <Grid.Column width={4} tablet={6} mobile={16}> {/* Adjust width for responsiveness */}
               <Form>
                 <Form.Field>
-                  <label>Total Initial Amount</label>
-                  <Input
-                    placeholder="Enter Total Initial Amount"
-                    type="text"
-                    name="initialAmount"
-                    value={formattedInitialAmount}
-                    onChange={this.handleInputChange}
-                    fluid
+                  <label>Total Initial Amount: ₹{initialAmount.toLocaleString('en-IN')}</label>
+                  <Slider
+                    value={initialAmount}
+                    min={10000000} // 1 crore
+                    max={1000000000} // 100 crore
+                    step={1000000} // Step of 1 crore
+                    onChange={(value) => this.handleSliderChange('initialAmount', value)} // Update chart when slider changes
                   />
                 </Form.Field>
 
@@ -134,7 +127,7 @@ class ExpenseCalculator extends Component {
                     min={50000}
                     max={1000000}
                     step={10000}
-                    onChange={this.handleSliderChange}
+                    onChange={(value) => this.handleSliderChange('monthlyExpense', value)} // Update chart when slider changes
                   />
                 </Form.Field>
 
@@ -177,7 +170,8 @@ class ExpenseCalculator extends Component {
               </Form>
             </Grid.Column>
 
-            <Grid.Column width={10} tablet={10} mobile={16}> {/* Make sure the width adds up to 16 */}
+            {/* Right Column: Output Results */}
+            <Grid.Column width={12} tablet={10} mobile={16}>
               <Segment className="result-box">
                 <Header as="h3">Expense Summary</Header>
                 <p>

@@ -7,18 +7,18 @@ class CalculatorContainerComponent extends Component {
   // Define the panes (tabs) for the Tab component
   panes = [
     {
-      menuItem: 'Investment Calculator',
-      render: () => (
-        <Tab.Pane>
-          <InvestmentCalculator />
-        </Tab.Pane>
-      ),
-    },
-    {
       menuItem: 'Expense Calculator',
       render: () => (
         <Tab.Pane>
           <ExpenseCalculator />
+        </Tab.Pane>
+      ),
+    },
+    {
+      menuItem: 'Investment Calculator',
+      render: () => (
+        <Tab.Pane>
+          <InvestmentCalculator />
         </Tab.Pane>
       ),
     },

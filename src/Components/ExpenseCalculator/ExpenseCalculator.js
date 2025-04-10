@@ -124,8 +124,8 @@ class ExpenseCalculator extends Component {
                   <label>Expense Per Month: ₹{monthlyExpense.toLocaleString('en-IN')}</label>
                   <Slider
                     value={monthlyExpense}
-                    min={50000}
-                    max={1000000}
+                    min={500000}
+                    max={5000000}
                     step={10000}
                     onChange={(value) => this.handleSliderChange('monthlyExpense', value)} // Update chart when slider changes
                   />

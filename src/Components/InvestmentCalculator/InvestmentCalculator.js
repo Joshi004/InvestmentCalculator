@@ -3,13 +3,15 @@ import { Form, Input, Button, Segment, Header, Grid } from 'semantic-ui-react';
 import InvestmentChart from '../Investmentchart/InvestmentChart'; // Import the new chart component
 import { formatNumber, calculateResults, convertNumberToWords } from './InvestmentCalculatorHelper'; // Import helper functions
 import './InvestmentCalculator.scss'; // Import your custom styles
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 class InvestmentCalculator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialAmount: '', // Initial lump sum investment
-      formattedInitialAmount: '', // Formatted initial amount (with commas)
+      initialAmount: 500000, // Default to 5 lakhs
+      formattedInitialAmount: '5,00,000',
       rateOfInterest: '', // Annual rate of interest
       time: '', // Time in years
       monthlyInvestment: '', // Monthly SIP contribution
@@ -26,23 +28,24 @@ class InvestmentCalculator extends Component {
   // Handle input changes and strip commas from the input for calculations
   handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    // Remove commas and parse the number for internal calculations
     const numericValue = value.replace(/,/g, '');
 
-    if (name === 'initialAmount') {
-      this.setState({
-        initialAmount: numericValue !== '' ? parseFloat(numericValue) : '',
-        formattedInitialAmount: formatNumber(numericValue) // Use helper function for formatting
-      }, this.calculateResults);
-    } else if (name === 'monthlyInvestment') {
+    if (name === 'monthlyInvestment') {
       this.setState({
         monthlyInvestment: numericValue !== '' ? parseFloat(numericValue) : '',
-        formattedMonthlyInvestment: formatNumber(numericValue) // Use helper function for formatting
+        formattedMonthlyInvestment: formatNumber(numericValue)
       }, this.calculateResults);
     } else {
       this.setState({ [name]: value !== '' ? parseFloat(value) : '' }, this.calculateResults);
     }
+  };
+
+  // Handle slider change for initial amount
+  handleSliderChange = (value) => {
+    this.setState({
+      initialAmount: value,
+      formattedInitialAmount: formatNumber(value)
+    }, this.calculateResults);
   };
 
   // Function to calculate and set results
@@ -77,14 +80,13 @@ class InvestmentCalculator extends Component {
             <Grid.Column width={4} tablet={6} mobile={16}> {/* Adjust width for different screen sizes */}
               <Form>
                 <Form.Field>
-                  <label>Initial Lump Sum Investment</label>
-                  <Input
-                    placeholder="Enter Initial Lump Sum"
-                    type="text"
-                    name="initialAmount"
-                    value={formattedInitialAmount}
-                    onChange={this.handleInputChange}
-                    fluid
+                  <label>Initial Lump Sum Investment: ₹{formattedInitialAmount}</label>
+                  <Slider
+                    value={this.state.initialAmount}
+                    min={500000} // 5 lakhs
+                    max={3000000} // 30 lakhs
+                    step={100000} // Step of 1 lakh
+                    onChange={this.handleSliderChange}
                   />
                 </Form.Field>
                 <Form.Group widths="equal">
@@ -170,5 +172,4 @@ class InvestmentCalculator extends Component {
     );
   }
 }
-
 export default InvestmentCalculator;
